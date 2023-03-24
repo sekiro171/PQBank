@@ -27,6 +27,8 @@ public class Model {
     private final ObservableList<Client> clients;
     private final ObservableList<Transaction> allTransactionAdmin;
 
+    private final ObservableList<Transaction> transactionsPrivateAdmin;
+
     private Model(){
         this.viewFactory = new ViewFactory();
         this.databaseDriver = new DatabaseDriver();
@@ -35,7 +37,7 @@ public class Model {
         this.client = new Client("", "", "", null,null,null );
         this.latestTransaction = FXCollections.observableArrayList();
         this.allTransactions = FXCollections.observableArrayList();
-
+        this.transactionsPrivateAdmin = FXCollections.observableArrayList();
         // Admin Data Section.
         this.adminLoginSuccessFlag = false;
         this.clients = FXCollections.observableArrayList();
@@ -127,11 +129,21 @@ public class Model {
         return allTransactions;
     }
 
+//    public void setGetTransactionsPrivateAdmin(){
+//        getTransactionsAdmin()
+//    }
+//    public ObservableList<Transaction> getTransactionsPrivateAdmin{
+//        return transactionsPrivateAdmin;
+//    }
+
     // Admin Method Section.
 
     public ObservableList<Transaction> getAllTransactionAdmin(){
         return allTransactionAdmin;
     }
+
+
+
     public void setAllTransactionAdmin(){
         prepareTransactionsAdmin(this.allTransactionAdmin);
     }
@@ -235,6 +247,25 @@ public class Model {
             e.printStackTrace();
         }
     }
+//    public ObservableList<Client> getTransactionsAdmin(String payeeAddress){
+//        ResultSet resultSet = databaseDriver.getTransactions(payeeAddress, -1);
+//        ObservableList<Transaction> Transactions = FXCollections.observableArrayList();
+//        try{
+//            while (resultSet.next()){
+//                String Sender = resultSet.getString("Sender");
+//                String Receiver = resultSet.getString("Receiver");
+//                double Amount = resultSet.getDouble("Amount");
+//                String date = resultSet.getString("Date");
+//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//                LocalDate dateTrans = LocalDate.parse(date, formatter);
+//                String Message = resultSet.getString("Message");
+//                Transactions.add(new Transaction(Sender, Receiver, Amount, dateTrans, Message));
+//            }
+//        }catch (SQLException e){
+//            e.printStackTrace();
+//        }
+//        return Transactions;
+//    }
     public CheckingAccount getCheckingAccount(String payeeAddress){
         CheckingAccount checkingAccount = null;
         ResultSet resultSet = databaseDriver.getCheckingAccountData(payeeAddress);

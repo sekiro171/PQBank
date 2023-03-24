@@ -4,9 +4,12 @@ import com.example.pqbank.Controllers.AlertBox;
 
 import com.example.pqbank.Models.Client;
 import com.example.pqbank.Models.Model;
+import com.example.pqbank.Models.Transaction;
 import com.example.pqbank.Views.ClientCellFactory;
+import com.example.pqbank.Views.TransactionCellFactory;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -19,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -29,7 +33,7 @@ public class TransactionAdminController implements Initializable {
     public TextField chAmountMoney_fld;
     public Button chDeposit_btn;
     public Label dateTime_lbl;
-    public ListView<Client> result_listView;
+    public ListView<Transaction> result_listView;
     public Button saDeposit_btn;
     public TextField saAmountMoney_fld;
 
@@ -54,8 +58,8 @@ public class TransactionAdminController implements Initializable {
     public void onShowClients(){
         // Show all Clients first
         initClientsList();
-        result_listView.setItems(Model.getInstance().getClients());
-        result_listView.setCellFactory(e -> new ClientCellFactory());
+        result_listView.setItems(Model.getInstance().getAllTransactionAdmin());
+        result_listView.setCellFactory(e -> new TransactionCellFactory());
     }
     public void initClientsList(){
         if(Model.getInstance().getClients().isEmpty()){
@@ -70,9 +74,27 @@ public class TransactionAdminController implements Initializable {
             if(rs.isBeforeFirst()){
                 if(rs.getString("payeeAddress").equals(search_fld.getText())){
                     ObservableList<Client> searchResults = Model.getInstance().searchClient(search_fld.getText());
-                    result_listView.setItems(searchResults);
-                    result_listView.setCellFactory(e -> new ClientCellFactory());
+//                    result_listView.setItems(searchResults);
+//                    result_listView.setCellFactory(e -> new ClientCellFactory());
                     client = searchResults.get(0);
+                    ResultSet resultSet = Model.getInstance().getDatabaseDriver().getTransactions(search_fld.getText(), -1);
+                    ObservableList<Transaction> Transactions = FXCollections.observableArrayList();
+                    try{
+                        while (resultSet.next()){
+                            String Sender = resultSet.getString("Sender");
+                            String Receiver = resultSet.getString("Receiver");
+                            double Amount = resultSet.getDouble("Amount");
+                            String date = resultSet.getString("Date");
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            LocalDate dateTrans = LocalDate.parse(date, formatter);
+                            String Message = resultSet.getString("Message");
+                            Transactions.add(new Transaction(Sender, Receiver, Amount, dateTrans, Message));
+                        }
+                    }catch (SQLException e){
+                        e.printStackTrace();
+                    }
+                    result_listView.setItems(Transactions);
+                    result_listView.setCellFactory(e -> new TransactionCellFactory());
                 }
             }else{
                 AlertBox.display("Failed", "Wrong Payee Address's Client. Please Enter Valid Account!");
@@ -83,9 +105,6 @@ public class TransactionAdminController implements Initializable {
             e.printStackTrace();
         }
     }
-
-
-
     private void onCheckingDeposit() {
 
         try {
