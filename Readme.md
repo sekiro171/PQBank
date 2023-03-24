@@ -40,7 +40,7 @@ The client section has the following functionalities:
 
 [Full Image Demo](/demo.md)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/SwqfWVEIRVg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[![Video Demo](https://img.youtube.com/vi/SwqfWVEIRVg/hqdefault.jpg)](https://www.youtube.com/watch?v=SwqfWVEIRVg)
 
 ## Application Techniques
 
