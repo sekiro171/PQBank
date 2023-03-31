@@ -1,10 +1,17 @@
+
+
 # PQBANK - ATM Management Application
 
 PQBank is a JavaFX desktop application that allows users to login as either an admin or a client. The application has separate windows for the admin and client sections.
 
+## Video Demo
+
+<iframe width="1120" height="630" src="https://www.youtube.com/embed/SwqfWVEIRVg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## OUTLINE
 
 - [PQBANK - ATM Management Application](#pqbank---atm-management-application)
+  - [Video Demo](#video-demo)
   - [OUTLINE](#outline)
   - [Admin Section](#admin-section)
   - [Client Section](#client-section)
@@ -40,7 +47,7 @@ The client section has the following functionalities:
 
 [Full Image Demo](/demo.md)
 
-[![Video Demo](https://img.youtube.com/vi/SwqfWVEIRVg/hqdefault.jpg)](https://www.youtube.com/watch?v=SwqfWVEIRVg)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/SwqfWVEIRVg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Application Techniques
 
@@ -48,12 +55,12 @@ The client section has the following functionalities:
 
 - Java core.
 - Javafx.
-  
+
 ### Tools
 
 - Intellij Idea.
 - Scene Builder.
-  
+
 ### Design Parttern
 
 - MVC.
